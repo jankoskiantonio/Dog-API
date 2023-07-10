@@ -1,4 +1,5 @@
 const pool = require('./db');
+const { Pool } = require("pg");
 
 /*const clearDatabaseQuery = `
 DROP DATABASE IF EXISTS breeds;
@@ -98,19 +99,44 @@ INSERT INTO images (link, breed, sub_breed) VALUES
 ('https://i.pinimg.com/474x/be/14/6a/be146a7c7b1069bdf07af1d52a90e57c.jpg', 'shihtzu', NULL);
 `;
 
+
+const connectionOptions = {
+  user: "postgres",
+  host: "localhost",
+  password: "3006",
+  port: 5432,
+};
+
+const createDatabase = async () => {
+  const pool = new Pool(connectionOptions);
+  const dbName = "breeds";
+
+  try {
+    const client = await pool.connect();
+    await client.query(`DROP DATABASE IF EXISTS ${dbName}`);
+    console.log("Database dropped.");
+    await client.query(`CREATE DATABASE ${dbName}`);
+    console.log("Database created.");
+    client.release();
+  } catch (err) {
+    console.error(err);
+  } finally {
+    await pool.end();
+  }
+};
+
+const createDB = async () => {
+  try {
+    await createDatabase();
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+
 pool.on('connect', () => {
   console.log('Connected to the database.');
 });
-
-/*const createDatabase = () => {
-  pool.query(clearDatabaseQuery)
-    .then(() => console.log('Database cleared and ready for a clean creation.'))
-    .catch((err) => console.error(err));
-
-  pool.query(createImageTableQuery)
-    .then(() => console.log('Database created.'))
-    .catch((err) => console.error(err));
-}*/
 
 const createAndPopulateBreeds = async () => {
   const fullBreedQuery = `${createBreedTableQuery}; ${populateBreedTableQuery}`;
@@ -134,6 +160,7 @@ const createAndPopulateImages = async () => {
 
 const seed = async () => {
   try {
+    await createDB(); // Clear and create fresh database
     await createAndPopulateBreeds(); // Create and populate the breeds table
     await createAndPopulateImages(); // Populate the images table
     console.log('Tables created and populated successfully.');

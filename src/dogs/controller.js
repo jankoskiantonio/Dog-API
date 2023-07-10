@@ -34,6 +34,17 @@ const getBreeds = (req, res) => {
 }
 
 const getRandomBreedImage = (req, res) => {
+  const breed = req.params.breed;
+    pool.query(queries.getImage, [breed], (error, results) => {
+      if (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Internal server error' });
+      }
+      res.status(200).json({ message: results.rows[0].link, status: "success" })
+    });
+};
+
+const getRandomBreedImageWithSubBreed = (req, res) => {
   const { breed, sub_breed } = req.params;
   const values = [breed, sub_breed];
 
@@ -87,6 +98,7 @@ const addImage = (req, res) => {
 module.exports = {
     getBreeds,
     getRandomBreedImage,
+    getRandomBreedImageWithSubBreed,
     addBreed,
     addImage
 }

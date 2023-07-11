@@ -1,3 +1,5 @@
+//Queries used by the controllers in controller.js
+
 const getBreeds = "SELECT * FROM breeds";
 const getBreedByName = "SELECT * FROM breeds WHERE breed = $1";
 const checkBreedExists = "SELECT b FROM breeds b WHERE b.breed = $1";

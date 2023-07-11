@@ -1,3 +1,5 @@
+//This is the main file that is used for starting the server. Docker is also set to look for this file when trying to start a server
+
 const express = require('express');
 const breedRoutes = require("./src/dogs/routes");
 
@@ -14,7 +16,9 @@ app.use("/api/v1/breeds", breedRoutes);
 
 app.listen(port, () => console.log(`app listening on port ${port}`));
 
+
 //For Docker
+
 const { Client } = require('pg');
 
 const connectionString = 'postgres://postgres:3006@postgres:5432/breeds';

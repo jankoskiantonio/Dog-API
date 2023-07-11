@@ -1,3 +1,5 @@
+//Seeder function that handles database creation and population with breed and image data
+
 const pool = require('./db');
 const { Pool } = require("pg");
 

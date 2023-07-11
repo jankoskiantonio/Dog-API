@@ -1,3 +1,5 @@
+//Defines functions that the API will use for handling each request appropriately.
+
 const { resolve } = require('path/posix');
 const pool = require('../../db');
 const queries = require('./queries');

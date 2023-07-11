@@ -1,3 +1,6 @@
+//Specifies routes that the API will use as well as their respectice controllers. 
+//server.js will consult this file when looking for routes to use. 
+
 const { Router } = require("express");
 const controller = require('./controller');
 

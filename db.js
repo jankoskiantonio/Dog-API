@@ -1,3 +1,6 @@
+//Database connection data. Docker and local will use different hosts.
+//db.js and controller.js will consult this file
+
 require('dotenv').config();
 const Pool = require("pg").Pool;
 

@@ -1,3 +1,5 @@
+//Used for establishing connection with database
+
 require('dotenv').config();
 const Pool = require("pg").Pool;
 

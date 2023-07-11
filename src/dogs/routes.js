@@ -1,3 +1,5 @@
+//Define API routes along with their respective controller
+
 const { Router } = require("express");
 const controller = require('./controller');
 

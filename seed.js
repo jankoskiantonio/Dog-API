@@ -1,13 +1,7 @@
-const pool = require('./db');
-const { Pool } = require("pg");
+//This is used for creating and seeding the database that the API will consult with breed and image data
 
-/*const clearDatabaseQuery = `
-DROP DATABASE IF EXISTS breeds;
-`
-const createDatabaseQuery = `
-CREATE DATABASE breeds;
-`*/
 
+//Breed table creation and population queries
 const createBreedTableQuery = `
 DROP TABLE IF EXISTS breeds;
 CREATE TABLE IF NOT EXISTS breeds
@@ -33,6 +27,7 @@ INSERT INTO breeds (breed, sub_breed) VALUES
 ('shihtzu', NULL);
 `;
 
+//Image table creation and population queries
 const createImageTableQuery = `
 DROP TABLE IF EXISTS images;
 CREATE TABLE IF NOT EXISTS images
@@ -99,7 +94,7 @@ INSERT INTO images (link, breed, sub_breed) VALUES
 ('https://i.pinimg.com/474x/be/14/6a/be146a7c7b1069bdf07af1d52a90e57c.jpg', 'shihtzu', NULL);
 `;
 
-
+//Alternate connection data used strictly for database creation
 const connectionOptions = {
   user: process.env.PG_USER,
   host: process.env.PG_HOST,
@@ -138,6 +133,7 @@ pool.on('connect', () => {
   console.log('Connected to the database.');
 });
 
+//Functions that handle tables creation and population
 const createAndPopulateBreeds = async () => {
   const fullBreedQuery = `${createBreedTableQuery}; ${populateBreedTableQuery}`;
   try {
@@ -158,6 +154,7 @@ const createAndPopulateImages = async () => {
   }
 };
 
+//Seed function where all the prior functions are called to execute database creation and population
 const seed = async () => {
   try {
     await createDB(); // Clear and create fresh database

@@ -1,0 +1,26 @@
+version: "3"
+services:
+  app:
+    restart: on-failure
+    build: .
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://postgres:3006@postgres:5432/breeds
+      NODE_ENV: development
+      PORT: 2552
+    ports:
+      - "2552:2552"
+    command: sh -c "./commands.sh"
+    volumes:
+      - .:/app/
+      - /app/node_modules
+
+  postgres:
+    image: postgres:15
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 3006
+      POSTGRES_DB: breeds

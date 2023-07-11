@@ -102,7 +102,8 @@ INSERT INTO images (link, breed, sub_breed) VALUES
 
 const connectionOptions = {
   user: process.env.PG_USER,
-  host: process.env.PG_HOST,
+  //LOCAL host: process.env.PG_HOST,
+  /*DOCKER*/ host: process.env.DOCKER_PG_HOST,
   password: process.env.PG_PASSWORD,
   port: process.env.PG_PORT,
 };

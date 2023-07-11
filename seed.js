@@ -1,5 +1,6 @@
 //This is used for creating and seeding the database that the API will consult with breed and image data
-
+const pool = require('./db');
+const { Pool } = require("pg");
 
 //Breed table creation and population queries
 const createBreedTableQuery = `
